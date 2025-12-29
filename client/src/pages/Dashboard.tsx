@@ -11,7 +11,7 @@ import { Checkbox } from "../components/ui/checkbox";
 import { Input } from "../components/ui/input";
 import { Skeleton } from "../components/ui/skeleton";
 import { AlertDialog } from "../components/ui/alert-dialog";
-import { Link, navigate } from "../lib/router";
+import { navigate } from "../lib/router";
 import { useAuthStore } from "../store/auth";
 import { useTodoStore } from "../store/todos";
 
@@ -29,14 +29,13 @@ export default function DashboardPage() {
   const [title, setTitle] = useState("");
   const [confirmId, setConfirmId] = useState<number | null>(null);
 
-  if (!token) {
-    navigate("/login", true);
-    return null;
-  }
-
   useEffect(() => {
+    if (!token) {
+      navigate("/login", true);
+      return;
+    }
     fetchTodos().catch(() => {});
-  }, []);
+  }, [token, fetchTodos]);
 
   return (
     <div className="mx-auto max-w-2xl space-y-6">
