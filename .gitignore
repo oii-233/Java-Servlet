@@ -1,0 +1,24 @@
+# Maven / Java
+server/target/
+server/.idea/
+server/.project
+server/.classpath
+server/.settings/
+server/.factorypath
+
+# VS Code
+.vscode/
+
+# OS cruft
+.DS_Store
+Thumbs.db
+
+# Env and secrets (keep only .env.example)
+server/.env
+
+# Node / Vite client
+client/node_modules/
+client/dist/
+client/.vite/
+client/.eslintcache
+client/.DS_Store
