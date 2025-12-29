@@ -38,7 +38,7 @@ public class CorsFilter implements Filter {
             resp.setHeader("Vary", "Origin");
             resp.setHeader("Access-Control-Allow-Credentials", "true");
             resp.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-            resp.setHeader("Access-Control-Allow-Headers", "Content-Type");
+            resp.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
         }
 
         if ("OPTIONS".equalsIgnoreCase(req.getMethod())) {

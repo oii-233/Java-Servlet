@@ -26,15 +26,23 @@ public class TodoServlet extends HttpServlet {
     private final transient TodoService todoService = new TodoService();
 
     private Integer requireUserId(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        HttpSession session = req.getSession(false);
-        if (session == null || session.getAttribute("userId") == null) {
-            resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            try (PrintWriter out = resp.getWriter()) {
-                out.println(gson.toJson(error("Authentication required")));
-            }
-            return null;
+        // Prefer userId set by JWTAuthFilter
+        Object uidAttr = req.getAttribute("userId");
+        if (uidAttr instanceof Integer) {
+            return (Integer) uidAttr;
         }
-        return (Integer) session.getAttribute("userId");
+
+        // Fallback to session for legacy clients
+        HttpSession session = req.getSession(false);
+        if (session != null && session.getAttribute("userId") != null) {
+            return (Integer) session.getAttribute("userId");
+        }
+
+        resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        try (PrintWriter out = resp.getWriter()) {
+            out.println(gson.toJson(error("Authentication required")));
+        }
+        return null;
     }
 
     @Override

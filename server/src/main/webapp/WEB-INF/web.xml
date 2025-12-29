@@ -16,6 +16,16 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <!-- JWT Auth Filter applied to protected API routes -->
+    <filter>
+        <filter-name>JWTAuthFilter</filter-name>
+        <filter-class>com.example.todo.filter.JWTAuthFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>JWTAuthFilter</filter-name>
+        <url-pattern>/api/todos/*</url-pattern>
+    </filter-mapping>
+
     <!-- Auth Servlet -->
     <servlet>
         <servlet-name>AuthServlet</servlet-name>

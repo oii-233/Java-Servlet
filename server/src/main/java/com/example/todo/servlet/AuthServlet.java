@@ -79,13 +79,14 @@ public class AuthServlet extends HttpServlet {
                         out.flush();
                         return;
                     }
-                    HttpSession session = req.getSession(true);
-                    session.setAttribute("userId", user.getId());
-                    session.setMaxInactiveInterval(60 * 60 * 24);
+                    // Issue JWT token for client usage
+                    String token = com.example.todo.util.JWTUtil.issueToken(user.getId(), user.getUsername());
                     resp.setStatus(HttpServletResponse.SC_OK);
                     JsonObject res = new JsonObject();
                     res.addProperty("id", user.getId());
                     res.addProperty("username", user.getUsername());
+                    res.addProperty("token", token);
+                    res.addProperty("message", "user successfully logged in");
                     out.println(gson.toJson(res));
                     out.flush();
                 } catch (SQLException e) {
