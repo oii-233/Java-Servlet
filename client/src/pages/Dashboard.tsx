@@ -26,6 +26,7 @@ export default function DashboardPage() {
     updateTodo,
     deleteTodo,
   } = useTodoStore();
+
   const [title, setTitle] = useState("");
   const [confirmId, setConfirmId] = useState<number | null>(null);
 
@@ -38,118 +39,124 @@ export default function DashboardPage() {
   }, [token, fetchTodos]);
 
   return (
-    <div className="mx-auto max-w-2xl space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-semibold text-neutral-900">Todo List</h1>
-          <p className="text-sm text-neutral-700">Java Servlet backend</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <Badge>{user?.username}</Badge>
-          <Button
-            variant="ghost"
-            onClick={() => {
-              logout();
-              navigate("/");
-            }}
-          >
-            Logout
-          </Button>
-        </div>
-      </div>
+    <main className="min-h-screen px-4 py-8">
+      <div className="mx-auto w-full max-w-2xl space-y-8">
+        {/* Header */}
+        <header className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h1 className="text-2xl font-semibold tracking-tight">Dashboard</h1>
+            <p className="text-sm text-neutral-600">Manage your tasks</p>
+          </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Add Todo</CardTitle>
-        </CardHeader>
-        <CardContent>
           <div className="flex items-center gap-2">
-            <Input
-              placeholder="e.g., Sleep"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
+            <Badge variant="secondary">{user?.username}</Badge>
             <Button
-              onClick={async () => {
-                if (!title.trim()) return;
-                await createTodo(title.trim());
-                setTitle("");
+              size="sm"
+              variant="ghost"
+              onClick={() => {
+                logout();
+                navigate("/");
               }}
-              disabled={status === "loading"}
             >
-              Add
+              Logout
             </Button>
           </div>
-          {error && <p className="mt-2 text-sm text-red-700">{error}</p>}
-        </CardContent>
-      </Card>
+        </header>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Todos</CardTitle>
-        </CardHeader>
-        <CardContent>
-          {status === "loading" ? (
-            <div className="space-y-2">
-              <Skeleton className="h-9 w-full" />
-              <Skeleton className="h-9 w-full" />
+        {/* Add Todo */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Add todo</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-2">
+            <div className="flex flex-col gap-2 sm:flex-row">
+              <Input
+                placeholder="What needs to be done?"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+              <Button
+                className="sm:w-auto"
+                disabled={!title.trim() || status === "loading"}
+                onClick={async () => {
+                  await createTodo(title.trim());
+                  setTitle("");
+                }}
+              >
+                Add
+              </Button>
             </div>
-          ) : todos.length === 0 ? (
-            <p className="text-sm text-neutral-700">No todos yet.</p>
-          ) : (
-            <div className="space-y-2">
-              {todos.map((todo) => (
-                <div
-                  key={todo.id}
-                  className="flex items-center justify-between rounded-md border border-neutral-200 p-2"
-                >
-                  <label className="flex items-center gap-2">
-                    <Checkbox
-                      checked={todo.completed}
-                      onChange={async (e) => {
-                        await updateTodo(
-                          todo.id,
-                          (e.target as HTMLInputElement).checked
-                        );
-                      }}
-                    />
-                    <span
-                      className={
-                        todo.completed
-                          ? "text-neutral-500 line-through"
-                          : "text-neutral-900"
-                      }
-                    >
-                      {todo.title}
-                    </span>
-                  </label>
-                  <div className="flex items-center gap-2">
+
+            {error && <p className="text-sm text-red-600">{error}</p>}
+          </CardContent>
+        </Card>
+
+        {/* Todos */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Todos</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {status === "loading" ? (
+              <div className="space-y-2">
+                <Skeleton className="h-10 w-full" />
+                <Skeleton className="h-10 w-full" />
+              </div>
+            ) : todos.length === 0 ? (
+              <p className="text-sm text-neutral-600">No todos yet</p>
+            ) : (
+              <ul className="space-y-2">
+                {todos.map((todo) => (
+                  <li
+                    key={todo.id}
+                    className="flex items-center justify-between rounded-md border p-3"
+                  >
+                    <label className="flex items-center gap-3">
+                      <Checkbox
+                        checked={todo.completed}
+                        onCheckedChange={(checked) =>
+                          updateTodo(todo.id, Boolean(checked))
+                        }
+                      />
+                      <span
+                        className={`text-sm ${
+                          todo.completed
+                            ? "text-neutral-400 line-through"
+                            : "text-neutral-900"
+                        }`}
+                      >
+                        {todo.title}
+                      </span>
+                    </label>
+
                     <Button
+                      size="sm"
                       variant="ghost"
                       onClick={() => setConfirmId(todo.id)}
                     >
                       Delete
                     </Button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </CardContent>
-      </Card>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </CardContent>
+        </Card>
 
-      <AlertDialog
-        open={confirmId !== null}
-        title="Delete todo?"
-        description="This action cannot be undone."
-        onClose={() => setConfirmId(null)}
-        onConfirm={async () => {
-          if (confirmId !== null) {
-            await deleteTodo(confirmId);
-            setConfirmId(null);
-          }
-        }}
-      />
-    </div>
+        {/* Confirm delete */}
+        <AlertDialog
+          open={confirmId !== null}
+          title="Delete todo?"
+          description="This action cannot be undone."
+          onClose={() => setConfirmId(null)}
+          onConfirm={async () => {
+            if (confirmId !== null) {
+              await deleteTodo(confirmId);
+              setConfirmId(null);
+            }
+          }}
+        />
+      </div>
+    </main>
   );
 }

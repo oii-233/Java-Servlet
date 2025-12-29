@@ -1,67 +1,32 @@
-import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
-import { Card, CardContent } from "../components/ui/card";
-import { Separator } from "../components/ui/separator";
 import { Link } from "../lib/router";
 import { navigate } from "../lib/router-utils";
 
 export default function HomePage() {
   return (
-    <div className="mx-auto max-w-2xl space-y-6">
-      <div className="space-y-3 text-center">
-        <h1 className="text-3xl font-semibold text-neutral-900">Todo List</h1>
-        <p className="text-neutral-700">
-          Simple, fast, and reliable task tracking.
-        </p>
-        <div className="flex items-center justify-center gap-3">
-          <Button onClick={() => navigate("/register")}>Get Started</Button>
-          <Link to="/login">
-            <Button variant="ghost">Sign In</Button>
-          </Link>
-        </div>
+    <main className="min-h-screen flex items-center justify-center px-4">
+      <div className="w-full max-w-2xl space-y-10">
+        {/* Hero */}
+        <section className="space-y-4 text-center">
+          <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight">
+            Todo list
+          </h1>
+          <p className="text-sm text-neutral-600">Simple. Fast. Reliable.</p>
+
+          <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
+            <Button
+              className="w-full sm:w-auto"
+              onClick={() => navigate("/register")}
+            >
+              Get started
+            </Button>
+
+            <Button asChild variant="ghost" className="w-full sm:w-auto">
+              <Link to="/login">Sign in</Link>
+            </Button>
+          </div>
+        </section>
       </div>
-      <Separator />
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <Card>
-          <CardContent>
-            <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-neutral-900">
-                Secure Auth
-              </span>
-              <Badge>JWT</Badge>
-            </div>
-            <p className="mt-1 text-sm text-neutral-700">
-              Sign in securely with token-based auth.
-            </p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent>
-            <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-neutral-900">
-                Fast CRUD
-              </span>
-              <Badge>REST</Badge>
-            </div>
-            <p className="mt-1 text-sm text-neutral-700">
-              Add, complete, and delete tasks smoothly.
-            </p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent>
-            <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-neutral-900">
-                Responsive UI
-              </span>
-              <Badge>shadcn</Badge>
-            </div>
-            <p className="mt-1 text-sm text-neutral-700">
-              Clean components with subtle interactions.
-            </p>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
+    </main>
   );
 }
