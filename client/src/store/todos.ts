@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { api } from '../api/client'
-import { Todo } from '../api/types'
+import type { Todo } from '../api/types'
 import { useAuthStore } from './auth'
 
 type TodoState = {
