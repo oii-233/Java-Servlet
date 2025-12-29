@@ -11,7 +11,7 @@ import { Checkbox } from "../components/ui/checkbox";
 import { Input } from "../components/ui/input";
 import { Skeleton } from "../components/ui/skeleton";
 import { AlertDialog } from "../components/ui/alert-dialog";
-import { navigate } from "../lib/router";
+import { navigate } from "../lib/router-utils";
 import { useAuthStore } from "../store/auth";
 import { useTodoStore } from "../store/todos";
 

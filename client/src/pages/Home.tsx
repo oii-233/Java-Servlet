@@ -2,7 +2,8 @@ import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
 import { Card, CardContent } from "../components/ui/card";
 import { Separator } from "../components/ui/separator";
-import { Link, navigate } from "../lib/router";
+import { Link } from "../lib/router";
+import { navigate } from "../lib/router-utils";
 
 export default function HomePage() {
   return (

@@ -1,6 +1,6 @@
 import "./App.css";
 import { useAuthStore } from "./store/auth";
-import { usePath, navigate } from "./lib/router";
+import { usePath, navigate } from "./lib/router-utils";
 import HomePage from "./pages/Home";
 import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
