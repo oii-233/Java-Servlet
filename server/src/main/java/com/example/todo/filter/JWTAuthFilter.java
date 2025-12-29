@@ -18,6 +18,11 @@ public class JWTAuthFilter implements Filter {
     private final Gson gson = new Gson();
 
     @Override
+    public void init(FilterConfig filterConfig) {
+        // No initialization required
+    }
+
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
@@ -56,5 +61,10 @@ public class JWTAuthFilter implements Filter {
         try (PrintWriter out = resp.getWriter()) {
             out.println(gson.toJson(err));
         }
+    }
+
+    @Override
+    public void destroy() {
+        // No cleanup required
     }
 }
