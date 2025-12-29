@@ -1,39 +1,54 @@
-import { FormEvent, useEffect, useState } from 'react'
-import './App.css'
-import { useAuthStore } from './store/auth'
-import { useTodoStore } from './store/todos'
+import { FormEvent, useEffect, useState } from "react";
+import "./App.css";
+import { useAuthStore } from "./store/auth";
+import { useTodoStore } from "./store/todos";
 
 function App() {
-  const { user, token, status: authStatus, error: authError, register, login, logout } = useAuthStore()
-  const { todos, status: todoStatus, error: todoError, fetchTodos, createTodo, updateTodo, deleteTodo } =
-    useTodoStore()
+  const {
+    user,
+    token,
+    status: authStatus,
+    error: authError,
+    register,
+    login,
+    logout,
+  } = useAuthStore();
+  const {
+    todos,
+    status: todoStatus,
+    error: todoError,
+    fetchTodos,
+    createTodo,
+    updateTodo,
+    deleteTodo,
+  } = useTodoStore();
 
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [title, setTitle] = useState('')
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [title, setTitle] = useState("");
 
   useEffect(() => {
     if (token) {
-      fetchTodos().catch(() => {})
+      fetchTodos().catch(() => {});
     }
-  }, [token, fetchTodos])
+  }, [token, fetchTodos]);
 
   const onRegister = async (e: FormEvent) => {
-    e.preventDefault()
-    await register({ username, password })
-  }
+    e.preventDefault();
+    await register({ username, password });
+  };
 
   const onLogin = async (e: FormEvent) => {
-    e.preventDefault()
-    await login({ username, password })
-  }
+    e.preventDefault();
+    await login({ username, password });
+  };
 
   const onCreateTodo = async (e: FormEvent) => {
-    e.preventDefault()
-    if (!title.trim()) return
-    await createTodo(title.trim())
-    setTitle('')
-  }
+    e.preventDefault();
+    if (!title.trim()) return;
+    await createTodo(title.trim());
+    setTitle("");
+  };
 
   return (
     <div className="page">
@@ -66,10 +81,19 @@ function App() {
             onChange={(e) => setPassword(e.target.value)}
           />
           <div className="actions">
-            <button className="btn" type="button" onClick={onRegister} disabled={authStatus === 'loading'}>
+            <button
+              className="btn"
+              type="button"
+              onClick={onRegister}
+              disabled={authStatus === "loading"}
+            >
               Register
             </button>
-            <button className="btn" type="submit" disabled={authStatus === 'loading'}>
+            <button
+              className="btn"
+              type="submit"
+              disabled={authStatus === "loading"}
+            >
               Login
             </button>
             <button className="btn ghost" type="button" onClick={logout}>
@@ -91,7 +115,11 @@ function App() {
             disabled={!token}
           />
           <div className="actions">
-            <button className="btn" type="submit" disabled={!token || todoStatus === 'loading'}>
+            <button
+              className="btn"
+              type="submit"
+              disabled={!token || todoStatus === "loading"}
+            >
               Add
             </button>
           </div>
@@ -103,7 +131,11 @@ function App() {
       <section className="card">
         <div className="list-header">
           <h2>Todos</h2>
-          <button className="btn ghost" onClick={() => token && fetchTodos()} disabled={!token || todoStatus === 'loading'}>
+          <button
+            className="btn ghost"
+            onClick={() => token && fetchTodos()}
+            disabled={!token || todoStatus === "loading"}
+          >
             Refresh
           </button>
         </div>
@@ -119,9 +151,14 @@ function App() {
                     checked={todo.completed}
                     onChange={(e) => updateTodo(todo.id, e.target.checked)}
                   />
-                  <span className={todo.completed ? 'done' : ''}>{todo.title}</span>
+                  <span className={todo.completed ? "done" : ""}>
+                    {todo.title}
+                  </span>
                 </label>
-                <button className="btn ghost" onClick={() => deleteTodo(todo.id)}>
+                <button
+                  className="btn ghost"
+                  onClick={() => deleteTodo(todo.id)}
+                >
                   Delete
                 </button>
               </li>
@@ -130,7 +167,7 @@ function App() {
         )}
       </section>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
