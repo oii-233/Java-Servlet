@@ -12,7 +12,8 @@ server/.factorypath
 # OS cruft
 .DS_Store
 Thumbs.db
-
+.env.local
+.env
 # Env and secrets (keep only .env.example)
 server/.env
 

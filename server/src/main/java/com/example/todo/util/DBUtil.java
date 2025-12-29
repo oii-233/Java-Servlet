@@ -13,9 +13,15 @@ public final class DBUtil {
     }
 
     public static Connection getConnection() throws SQLException {
-        String url = EnvUtil.getRequired("DB_URL");
-        String user = EnvUtil.getRequired("DB_USER");
-        String password = EnvUtil.getRequired("DB_PASSWORD");
+        String url = EnvUtil.getJdbcUrl();
+        String user = EnvUtil.get("DB_USER");
+        if (user == null || user.trim().isEmpty()) {
+            user = EnvUtil.getRequired("PGUSER");
+        }
+        String password = EnvUtil.get("DB_PASSWORD");
+        if (password == null || password.trim().isEmpty()) {
+            password = EnvUtil.getRequired("PGPASSWORD");
+        }
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {

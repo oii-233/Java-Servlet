@@ -26,9 +26,15 @@ public class AuthServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
         String path = req.getPathInfo();
-        if (path == null)
+        if (path == null) {
             path = "";
+        }
+        // Normalize trailing slash (e.g., "/register/" -> "/register")
+        if (!path.isEmpty() && path.endsWith("/")) {
+            path = path.substring(0, path.length() - 1);
+        }
 
         try (PrintWriter out = resp.getWriter()) {
             if (path.equals("/register")) {
@@ -45,16 +51,19 @@ public class AuthServlet extends HttpServlet {
                     res.addProperty("id", user.getId());
                     res.addProperty("username", user.getUsername());
                     out.println(gson.toJson(res));
+                    out.flush();
                 } catch (IllegalArgumentException e) {
                     resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                     JsonObject err = new JsonObject();
                     err.addProperty("error", e.getMessage());
                     out.println(gson.toJson(err));
+                    out.flush();
                 } catch (SQLException e) {
                     resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                     JsonObject err = new JsonObject();
                     err.addProperty("error", "Database error: " + e.getMessage());
                     out.println(gson.toJson(err));
+                    out.flush();
                 }
             } else if (path.equals("/login")) {
                 JsonObject body = readJson(req);
@@ -67,6 +76,7 @@ public class AuthServlet extends HttpServlet {
                         JsonObject err = new JsonObject();
                         err.addProperty("error", "Invalid credentials");
                         out.println(gson.toJson(err));
+                        out.flush();
                         return;
                     }
                     HttpSession session = req.getSession(true);
@@ -77,15 +87,18 @@ public class AuthServlet extends HttpServlet {
                     res.addProperty("id", user.getId());
                     res.addProperty("username", user.getUsername());
                     out.println(gson.toJson(res));
+                    out.flush();
                 } catch (SQLException e) {
                     resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                     JsonObject err = new JsonObject();
                     err.addProperty("error", "Database error: " + e.getMessage());
                     out.println(gson.toJson(err));
+                    out.flush();
                 }
             } else {
                 resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 out.println(gson.toJson(error("Not found")));
+                out.flush();
             }
         }
     }
