@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         version="5.0">
+
+    <display-name>Mini Drive</display-name>
+
+    <context-param>
+        <param-name>storage.basePath</param-name>
+        <param-value>/tmp/mini-drive/uploads</param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>com.example.drive.utils.AppBootstrap</listener-class>
+    </listener>
+
+    <filter>
+        <filter-name>JwtFilter</filter-name>
+        <filter-class>com.example.drive.auth.JwtFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>JwtFilter</filter-name>
+        <url-pattern>/api/*</url-pattern>
+    </filter-mapping>
+
+    <servlet>
+        <servlet-name>AuthServlet</servlet-name>
+        <servlet-class>com.example.drive.auth.AuthServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AuthServlet</servlet-name>
+        <url-pattern>/api/auth/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FileServlet</servlet-name>
+        <servlet-class>com.example.drive.files.FileServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FileServlet</servlet-name>
+        <url-pattern>/api/files/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FolderServlet</servlet-name>
+        <servlet-class>com.example.drive.folders.FolderServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FolderServlet</servlet-name>
+        <url-pattern>/api/folders/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>TrashServlet</servlet-name>
+        <servlet-class>com.example.drive.trash.TrashServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TrashServlet</servlet-name>
+        <url-pattern>/api/trash/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ShareServlet</servlet-name>
+        <servlet-class>com.example.drive.share.ShareServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ShareServlet</servlet-name>
+        <url-pattern>/api/share/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ActivityServlet</servlet-name>
+        <servlet-class>com.example.drive.activity.ActivityServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ActivityServlet</servlet-name>
+        <url-pattern>/api/activity/*</url-pattern>
+    </servlet-mapping>
+</web-app>
