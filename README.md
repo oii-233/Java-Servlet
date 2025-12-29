@@ -118,7 +118,6 @@ npm run dev
 ## Screenshots
 
 ### Home
-![Home – Mobile](docs/screenshots/home-mobile.png)
 ![Home – Desktop](docs/screenshots/home-desktop.png)
 
 ### Auth
@@ -126,5 +125,4 @@ npm run dev
 ![Register](docs/screenshots/register.png)
 
 ### Dashboard
-![Dashboard – Mobile](docs/screenshots/dashboard-mobile.png)
 ![Dashboard – Desktop](docs/screenshots/dashboard-desktop.png)
