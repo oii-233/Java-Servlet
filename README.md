@@ -43,8 +43,8 @@ Run backend (generic):
 
 - Ensure Java 17+ and Maven installed
 - Build: mvn clean package
-- Deploy WAR to Tomcat/Jetty or start your servlet runner
-- Verify at http://localhost:8080/api
+- Deploy WAR to Tomcat/Jetty or start your servlet runner using command mvn tomcat7:run
+- Verify at http://localhost:8080/
 
 ## Frontend
 
@@ -59,8 +59,7 @@ Setup:
 
 ```bash
 cd client
-npm i
-npm i class-variance-authority @radix-ui/react-slot
+npm install
 ```
 
 Dev:
