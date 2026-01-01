@@ -8,7 +8,8 @@ export default function HomePage() {
       <div className="w-full max-w-2xl space-y-10">
         {/* Hero */}
         <section className="space-y-4 text-center">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-beauty text-white text-shadow font-semibold tracking-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif text-white font-semibold tracking-tight 
+               drop-shadow-[4px_4px_6px_rgba(0,0,0,0.7)]">
             Todo list
           </h1>
           <p className="text-sm text-white text-shadow">Simple. Fast. Reliable.</p>

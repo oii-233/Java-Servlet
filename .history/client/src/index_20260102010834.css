@@ -22,11 +22,5 @@ body {
 }
 
 .text-shadow {
-	text-shadow: 0 2px 10px rgba(0,0,0,0.75);
-}
-.bg-blur {
-	background-color: rgba(255,255,255,0.04);
-	-webkit-backdrop-filter: blur(6px);
-	backdrop-filter: blur(6px);
-	border: 1px solid rgba(255,255,255,0.08);
+	text-shadow: 0 2px 8px rgba(0,0,0,0.8);
 }

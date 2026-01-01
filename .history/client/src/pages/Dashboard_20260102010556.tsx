@@ -119,11 +119,11 @@ export default function DashboardPage() {
                         }
                       />
                       <span
-                        className={`text-sm ${
+                        className={`text-lg md:text-xl font-beauty ${
                           todo.completed
                             ? "text-neutral-400 line-through"
-                            : "text-neutral-900"
-                        }`}
+                            : "text-white"
+                        } text-shadow`}
                       >
                         {todo.title}
                       </span>

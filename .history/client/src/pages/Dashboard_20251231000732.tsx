@@ -44,8 +44,8 @@ export default function DashboardPage() {
         {/* Header */}
         <header className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-2xl text-white text-shadow-violet-100 font-semibold tracking-tight">Dashboard</h1>
-            <p className="text-sm text-white text-shadow-blue-100">Manage your tasks</p>
+            <h1 className="text-2xl font-semibold tracking-tight">Dashboard</h1>
+            <p className="text-sm text-neutral-600">Manage your tasks</p>
           </div>
 
           <div className="flex items-center gap-2">
