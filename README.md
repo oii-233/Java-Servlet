@@ -2,13 +2,6 @@
 
 Full-stack Todo app with a Java Servlet backend and a minimal, responsive React frontend.
 
-Group Students
-1. Salahadin Sadik   UGR/35317/16
-2. Siham Yimam       UGR/35415/16
-3. Iman Ibrahim     UGR/34659/16
-4. Fuad Sano   UGR/34476/16
-5. Fahmi Abdi  UGR/34392/16
-
 ## Project Structure
 
 - server/ — Java Servlet backend (runs at http://localhost:8080)
